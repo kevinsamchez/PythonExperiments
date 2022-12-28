@@ -10,7 +10,7 @@ from datetime import datetime
 def convertCurrency():
     initCurrencyPrompt = 'Enter an initial currency: '
     targetCurrencyPrompt = 'Enter a target currency: '
-    datePrompt = 'Enter in desired date (DD-MM-YYYY) to check for currency conversion or leave empty: '
+    datePrompt = 'Enter in desired date (DD-MM-YYYY) to check for currency conversion or leave empty for current date: '
 
     date = checkValiddate(datePrompt)
     initCurrency = checkValidCodes(initCurrencyPrompt)
