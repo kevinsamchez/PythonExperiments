@@ -12,11 +12,8 @@ def convertCurrency():
     targetCurrencyPrompt = 'Enter a target currency: '
     datePrompt = 'Enter in desired date (DD-MM-YYYY) to check for currency conversion or leave empty for current date: '
 
-    date = checkValiddate(datePrompt)
-    initCurrency = checkValidCodes(initCurrencyPrompt)
-    targetCurrency = checkValidCodes(targetCurrencyPrompt)
-
     while True:
+    #checks the amount is a valid number AND above 0
         try:
             amount = float(input('Enter in the amount to convert: '))
         except ValueError:
@@ -29,6 +26,10 @@ def convertCurrency():
             print('A value greater than 0 must be entered.')
             continue    
 
+    initCurrency = checkValidCodes(initCurrencyPrompt)
+    targetCurrency = checkValidCodes(targetCurrencyPrompt)
+    date = checkValiddate(datePrompt)
+
     if date != '':
         url = ('https://api.apilayer.com/fixer/convert?to='
               + targetCurrency + '&from=' + initCurrency +
@@ -38,18 +39,19 @@ def convertCurrency():
               + targetCurrency + '&from=' + initCurrency +
             '&amount=' + str(amount))        
     
+    #set up and send GET request
     payload = {}
     headers= {
         "apikey": "NdUqBM1G5hVn84mA3DtZeHf8zywGNl8n"
     }
-
     response = requests.request("GET", url, headers=headers, data = payload)
 
+    
     statusCode = response.status_code
     result = response.json()
 
     if statusCode == 200:
-        print(f'${amount:.2f} {initCurrency} is ${result["result"]:.2f} {targetCurrency} on {datetime.strptime(result["date"],"%Y-%m-%d").date():%d-%m-%Y}')
+        print(f'{amount:.2f} {initCurrency} is {result["result"]:.2f} {targetCurrency} on {datetime.strptime(result["date"],"%Y-%m-%d").date():%d-%m-%Y}')
     else:
         print('Something went wrong!')
 
@@ -89,7 +91,7 @@ def checkValiddate(prompt):
         try:
             date = input(prompt)
             if date != '':
-                date = datetime.strptime(date,'%d-%m-%Y').date() #this converts it back to the default which is yyyy-mm-dd
+                date = datetime.strftime(date,'%d-%m-%Y').date() #this converts it back to the default which is yyyy-mm-dd
                 return date
             else:
                 return date
