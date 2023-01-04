@@ -6,19 +6,25 @@ Sorts an array based on user input
 
 import random
 
-def sortList(ranArray,sort):
+def sort_list(ran_array,sort):
+    """Sorts the list based on user input
+
+    Args:
+        ran_array (list): An array of numbers to be sorted
+        sort (string): the type of sorting user has requested
+    """
     if sort == 'ASC':
-        ranArray.sort()
+        ran_array.sort()
     elif sort == 'DESC':
-        ranArray.sort(reverse = True)
-    print(ranArray)
+        ran_array.sort(reverse = True)
+    print(ran_array)
 
 if __name__ == '__main__':
     sortValues = ['ASC','DESC','NONE']
 
-    ranArray = [random.randint(0,100) for x in range(0,random.randint(10,100))]
+    ran_array = [random.randint(0,100) for x in range(0,random.randint(10,100))]
 
-    print(ranArray)
+    print(ran_array)
 
     while True:
         try:
@@ -27,4 +33,5 @@ if __name__ == '__main__':
         except ValueError:
             print('Invalid sorting style. Sorting style must be ASC, DESC or NONE. Enter in the style again.')
 
-    sortList(ranArray,sort)
+    sort_list(ran_array,sort)
+    
